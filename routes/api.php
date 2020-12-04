@@ -21,6 +21,12 @@ Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verif
 Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
 
    
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::middleware('auth:api')->group( function () {
+
+    Route::post('alat', 'App\Http\Controllers\api\AlatController@store');
+    Route::get('alat', 'App\Http\Controllers\api\AlatController@getAlat');
 });

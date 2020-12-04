@@ -3,26 +3,23 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\User;
+use Validator;
 use App\Http\Controllers\api\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+
 
 class RegisterController extends BaseController
 {
-    public function register(Request $request)
-
-    {
+    public function register(Request $request){
 
         $validator = Validator::make($request->all(), [
 
-            'name' => 'required',
-
+            'nama' => 'required',
             'email' => 'required|email',
-
-            'password' => 'required',
-
-            'c_password' => 'required|same:password',
+            'alamat' => 'required',
+            'no_telp' => 'required',
+            'foto' => 'required',
 
         ]);
 
@@ -37,14 +34,28 @@ class RegisterController extends BaseController
    
 
         $input = $request->all();
+        $image_64 = $input['foto'];
 
-        $input['password'] = bcrypt($input['password']);
+        $extension = explode('/', explode(':', substr($image_64, 0, strpos($image_64, ';')))[1])[1];   // .jpg .png .pdf
+        
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1); 
+        // find substring fro replace here eg: data:image/png;base64,
+        $image = str_replace($replace, '', $image_64); 
+        $image = str_replace(' ', '+', $image); 
+        $imageName = \Str::random(10).'.'.$extension;
+        \Storage::disk('public')->put($imageName, base64_decode($image));
+        
+        $path = \Storage::url($imageName);
+        $gambar = url('/').$path;
+
+        $input['foto'] = $gambar;
 
         $user = User::create($input);
 
         $success['token'] =  $user->createToken('MyApp')->accessToken;
 
-        $success['name'] =  $user->name;
+        $success['email'] =  $user->email;
+        $success['foto'] =  $user->foto;
 
    
 
@@ -52,9 +63,7 @@ class RegisterController extends BaseController
 
     }
 
-    public function login(Request $request)
-
-    {
+    public function login(Request $request){
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
 
