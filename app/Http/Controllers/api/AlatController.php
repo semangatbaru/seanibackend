@@ -11,14 +11,9 @@ use App\Http\Controllers\api\BaseController as BaseController;
 
 class AlatController extends BaseController
 {
-    public function getAlat()
-
-    {
+    public function getAlat(){
 
         $alat = Alat::all();
-
-    
-
         return $this->sendResponse(AlatResource::collection($alat), 'Products retrieved successfully.');
 
     }
@@ -61,4 +56,5 @@ class AlatController extends BaseController
         return $this->sendResponse(new AlatResource($alat), 'Alat created successfully.');
 
     }
+    
 }

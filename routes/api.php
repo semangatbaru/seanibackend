@@ -27,6 +27,9 @@ Route::get('email/resend', 'VerificationApiController@resend')->name('verificati
 
 Route::middleware('auth:api')->group( function () {
 
+    //alat
     Route::post('alat', 'App\Http\Controllers\api\AlatController@store');
     Route::get('alat', 'App\Http\Controllers\api\AlatController@getAlat');
+    //berita
+    Route::get('info', 'App\Http\Controllers\api\InfoController@getInfo');
 });
