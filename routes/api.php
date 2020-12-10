@@ -32,4 +32,6 @@ Route::middleware('auth:api')->group( function () {
     Route::get('alat', 'App\Http\Controllers\api\AlatController@getAlat');
     //berita
     Route::get('info', 'App\Http\Controllers\api\InfoController@getInfo');
+    //transaksi
+    Route::post('transaksi', 'App\Http\Controllers\api\TransaksiController@store');
 });

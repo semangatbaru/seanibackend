@@ -56,6 +56,7 @@ class RegisterController extends BaseController
 
         $success['email'] =  $user->email;
         $success['foto'] =  $user->foto;
+        $success['id_user'] =  $user->id_user;
 
    
 
@@ -72,6 +73,7 @@ class RegisterController extends BaseController
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
 
             $success['name'] =  $user->name;
+            
 
    
 
