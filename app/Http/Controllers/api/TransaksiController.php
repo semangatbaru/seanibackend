@@ -7,7 +7,7 @@ use App\Models\Detail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
-
+use DB;
 use App\Http\Resources\Transaksi as TransaksiResource;
 use App\Http\Resources\Detail as DetailResource;
 use App\Http\Controllers\api\BaseController as BaseController;
@@ -15,6 +15,23 @@ use App\Http\Controllers\api\BaseController as BaseController;
 
 class TransaksiController extends BaseController
 {
+    public function getTransaksi(){
+        $alat = DB::table('sewa')->orderby('id_sewa','desc')->get();
+        return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
+    }
+
+    public function prosesTransaksi(){
+        $alat = DB::table('sewa')->where('status','diproses')->orderby('id_sewa','desc')->get();
+        return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
+    }
+    public function juTransaksi(){
+        $alat = DB::table('sewa')->where('status','ju')->orderby('id_sewa','desc')->get();
+        return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
+    }
+    public function setujuTransaksi(){
+        $alat = DB::table('sewa')->where('status','disetujui')->orderby('id_sewa','desc')->get();
+        return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
+    }
     
     public function store(Request $request){
 

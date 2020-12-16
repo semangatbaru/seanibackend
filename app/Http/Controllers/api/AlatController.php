@@ -14,7 +14,7 @@ class AlatController extends BaseController
     public function getAlat(){
 
         $alat = Alat::all();
-        return $this->sendResponse(AlatResource::collection($alat), 'Products retrieved successfully.');
+        return $this->sendResponse(AlatResource::collection($alat), 'Alat retrieved successfully.');
 
     }
     public function store(Request $request){

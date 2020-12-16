@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\User;
+use App\Models\Admin;
 use Validator;
 use App\Http\Controllers\api\BaseController as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class RegisterController extends BaseController
@@ -16,7 +18,7 @@ class RegisterController extends BaseController
         $validator = Validator::make($request->all(), [
 
             'nama' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:user',
             'alamat' => 'required',
             'no_telp' => 'required',
             'foto' => 'required',
@@ -86,6 +88,70 @@ class RegisterController extends BaseController
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
 
         } 
+
+    }
+    public function show(Request $request){
+        $input = $request->all();
+
+        $email = User::where('email', $input)->first();
+
+  
+
+        if($email == null){
+
+            $res['success'] = "0";
+            $res['value'] = "email anda belum terdaftar"; 
+            return response($res);
+
+        }else{
+            $success['token'] =  $email->createToken('MyApp')->accessToken;
+
+            $success['email'] =  $email->email;
+            $success['foto'] =  $email->foto;
+            $success['id_user'] =  $email->id_user;
+
+   
+
+        return $this->sendResponse($success, 'User register successfully.');
+        }
+        
+        
+
+    }
+    public function admin(Request $request){
+        $input = $request->all();
+        $i = $input['password'];
+
+        $email = Admin::where('email', $input)->first();
+
+        
+  
+
+        
+        if($email == null){
+
+            $res['success'] = "false";
+            $res['value'] = "email anda belum terdaftar"; 
+            return response($res);
+
+        }else{
+            $parmPassword =  $email->password;
+          
+            if (Hash::check($i, $parmPassword)) {
+                $success['token'] =  $email->createToken('MyApp')->accessToken;
+
+                $success['email'] =  $email->email;
+                $success['id_admin'] =  $email->id_admin;
+                $res["message"] = "berhasil login";
+                return $this->sendResponse($success, 'User register successfully.');
+            }else{
+                $res["success"] = "false";
+                $res["message"] = "password tidak cocok";
+                return response($res);
+            }
+        }
+        
+        
 
     }
     
