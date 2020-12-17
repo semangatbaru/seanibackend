@@ -42,4 +42,8 @@ Route::middleware('auth:api')->group( function () {
     Route::get('ju', 'App\Http\Controllers\api\TransaksiController@juTransaksi');
     Route::get('setuju', 'App\Http\Controllers\api\TransaksiController@setujuTransaksi');
     Route::post('transaksi', 'App\Http\Controllers\api\TransaksiController@store');
+
+    //config
+    Route::post('config', 'App\Http\Controllers\api\ConfigController@getConfig');
+
 });
