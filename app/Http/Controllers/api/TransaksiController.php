@@ -15,21 +15,29 @@ use App\Http\Controllers\api\BaseController as BaseController;
 
 class TransaksiController extends BaseController
 {
-    public function getTransaksi(){
-        $alat = DB::table('sewa')->orderby('id_sewa','desc')->get();
+    public function getTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->where('id_user',$input)
+        ->orderby('id_sewa','desc')->get();
         return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
     }
 
-    public function prosesTransaksi(){
-        $alat = DB::table('sewa')->where('status','diproses')->orderby('id_sewa','desc')->get();
+    public function prosesTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->where('status','diproses')->where('id_user',$input)
+        ->orderby('id_sewa','desc')->get();
         return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
     }
-    public function juTransaksi(){
-        $alat = DB::table('sewa')->where('status','ju')->orderby('id_sewa','desc')->get();
+    public function juTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->where('status','ju')->where('id_user',$input)
+        ->orderby('id_sewa','desc')->get();
         return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
     }
-    public function setujuTransaksi(){
-        $alat = DB::table('sewa')->where('status','disetujui')->orderby('id_sewa','desc')->get();
+    public function setujuTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->where('status','disetujui')->where('id_user',$input)
+        ->orderby('id_sewa','desc')->get();
         return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
     }
     

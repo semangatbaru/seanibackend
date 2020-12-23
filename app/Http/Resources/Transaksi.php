@@ -19,7 +19,6 @@ class Transaksi extends JsonResource
             'id_user' => $this->id_user,
             'tgl_sewa' => $this->tgl_sewa,
             'total' => $this->total,
-            'bayar' => $this->bayar,
             'status' => $this->status,
             'lahan' => $this->lahan,
             

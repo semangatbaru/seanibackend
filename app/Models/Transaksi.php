@@ -19,7 +19,6 @@ class Transaksi extends Model
         'id_user',
         'tgl_sewa',
         'total',
-        'bayar',
         'status',
         'lahan'
     ];

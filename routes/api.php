@@ -38,9 +38,9 @@ Route::middleware('auth:api')->group( function () {
     Route::get('info', 'App\Http\Controllers\api\InfoController@getInfo');
     //transaksi
     Route::get('transaksi', 'App\Http\Controllers\api\TransaksiController@getTransaksi');
-    Route::get('proses', 'App\Http\Controllers\api\TransaksiController@prosesTransaksi');
-    Route::get('ju', 'App\Http\Controllers\api\TransaksiController@juTransaksi');
-    Route::get('setuju', 'App\Http\Controllers\api\TransaksiController@setujuTransaksi');
+    Route::post('proses', 'App\Http\Controllers\api\TransaksiController@prosesTransaksi');
+    Route::post('ju', 'App\Http\Controllers\api\TransaksiController@juTransaksi');
+    Route::post('setuju', 'App\Http\Controllers\api\TransaksiController@setujuTransaksi');
     Route::post('transaksi', 'App\Http\Controllers\api\TransaksiController@store');
 
     //config
