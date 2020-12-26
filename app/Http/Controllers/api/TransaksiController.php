@@ -50,7 +50,6 @@ class TransaksiController extends BaseController
             'tgl_sewa' => 'required',
             'total' => 'required',
             'id_user' => 'required',
-            'bayar' => 'required',
             'status' => 'required',
             'lahan' => 'required',
             
