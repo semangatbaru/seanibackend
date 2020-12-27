@@ -27,6 +27,7 @@ Route::get('lju', 'App\Http\Controllers\api\TransaksiController@ljuTransaksi');
 Route::get('lsetuju', 'App\Http\Controllers\api\TransaksiController@lsetujuTransaksi');
 Route::post('detailUser', 'App\Http\Controllers\api\TransaksiController@detailUser');
 Route::post('detailSewa', 'App\Http\Controllers\api\TransaksiController@detailSewa');
+Route::delete('delete/{id_sewa}', 'App\Http\Controllers\api\TransaksiController@delete');
 
 
 
