@@ -14,26 +14,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//admin 
+Route::post('admin', 'App\Http\Controllers\api\RegisterController@admin');
+//alat
+Route::post('alat', 'App\Http\Controllers\api\AlatController@store');
+Route::get('alat', 'App\Http\Controllers\api\AlatController@getAlat');
+//laporan
+
+Route::get('ltransaksi', 'App\Http\Controllers\api\TransaksiController@lgetTransaksi');
+Route::get('lproses', 'App\Http\Controllers\api\TransaksiController@lprosesTransaksi');
+Route::get('lju', 'App\Http\Controllers\api\TransaksiController@ljuTransaksi');
+Route::get('lsetuju', 'App\Http\Controllers\api\TransaksiController@lsetujuTransaksi');
+Route::post('detailUser', 'App\Http\Controllers\api\TransaksiController@detailUser');
+Route::post('detailSewa', 'App\Http\Controllers\api\TransaksiController@detailSewa');
+
+
+
+// customer
 Route::post('register', 'App\Http\Controllers\api\RegisterController@register');
 Route::post('login', 'App\Http\Controllers\api\RegisterController@login');
-
 Route::post('show', 'App\Http\Controllers\api\RegisterController@show');
-
-Route::post('admin', 'App\Http\Controllers\api\RegisterController@admin');
-
-Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
-Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
-
-   
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::middleware('auth:api')->group( function () {
 
-    //alat
-    Route::post('alat', 'App\Http\Controllers\api\AlatController@store');
-    Route::get('alat', 'App\Http\Controllers\api\AlatController@getAlat');
+    
     //berita
     Route::get('info', 'App\Http\Controllers\api\InfoController@getInfo');
     //transaksi
@@ -47,3 +50,5 @@ Route::middleware('auth:api')->group( function () {
     Route::post('config', 'App\Http\Controllers\api\ConfigController@getConfig');
 
 });
+
+

@@ -15,6 +15,86 @@ use App\Http\Controllers\api\BaseController as BaseController;
 
 class TransaksiController extends BaseController
 {
+    public function lgetTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->orderby('id_sewa','desc')
+        
+        ->where('sewa.id_sewa',$input)->where('sewa.id_user',$input)
+        ->get(['sewa.*', 'user.*']);;
+            
+        $res['success'] = "true";
+        $res['data'] = $alat;
+        return response($res);
+    }
+
+    public function lprosesTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->where('status','diproses')
+        ->join('user', 'user.id_user', '=', 'sewa.id_user')
+        
+        ->orderby('id_sewa','desc')
+        ->get(['sewa.*', 'user.*']);;
+            
+        $res['success'] = "true";
+        $res['data'] = $alat;
+        return response($res);
+    }
+    public function ljuTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->where('status','ju')
+        ->join('user', 'user.id_user', '=', 'sewa.id_user')
+        
+        ->orderby('id_sewa','desc')
+        ->get(['sewa.*', 'user.*']);;
+            
+        $res['success'] = "true";
+        $res['data'] = $alat;
+        return response($res);
+    }
+    public function lsetujuTransaksi(Request $request){
+        $input = $request->all();
+        $alat = DB::table('sewa')->where('status','disetujui')
+        ->join('user', 'user.id_user', '=', 'sewa.id_user')
+        
+        ->orderby('id_sewa','desc')
+        ->get(['sewa.*', 'user.*']);;
+            
+        $res['success'] = "true";
+        $res['data'] = $alat;
+        return response($res);
+    }
+
+    public function detailUser(Request $request){
+        $input = $request->all();
+        $detailuser = DB::table('sewa')
+        ->join('user', 'user.id_user', '=', 'sewa.id_user')
+        ->where('sewa.id_sewa',$input)->where('sewa.id_user',$input)
+        ->get(['sewa.*', 'user.*']);;
+            
+        $res['success'] = "true";
+        $res['data'] = $detailuser;
+        return response($res);
+        //return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
+    }
+    public function detailSewa(Request $request){
+        $input = $request->all();
+        $detailuser = DB::table('detail_sewa')
+        ->join('alat', 'alat.id_alat', '=', 'detail_sewa.id_alat')
+        
+        //->where('detail_sewa.id_sewa',$input)
+        ->where('detail_sewa.id_sewa',$input)
+        ->get(['alat.nama_alat']);;
+            
+        $res['success'] = "true";
+        $res['data'] = $detailuser;
+        return response($res);
+        //return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
+    }
+
+
+
+
+    //customer
     public function getTransaksi(Request $request){
         $input = $request->all();
         $alat = DB::table('sewa')->where('id_user',$input)
