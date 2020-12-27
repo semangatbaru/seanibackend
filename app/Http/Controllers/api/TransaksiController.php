@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
+use Carbon\Carbon as time;
 use App\Http\Resources\Transaksi as TransaksiResource;
 use App\Http\Resources\Detail as DetailResource;
 use App\Http\Controllers\api\BaseController as BaseController;
@@ -18,8 +19,7 @@ class TransaksiController extends BaseController
     public function lgetTransaksi(Request $request){
         $input = $request->all();
         $alat = DB::table('sewa')->orderby('id_sewa','desc')
-        
-        ->where('sewa.id_sewa',$input)->where('sewa.id_user',$input)
+        ->join('user', 'user.id_user', '=', 'sewa.id_user')
         ->get(['sewa.*', 'user.*']);;
             
         $res['success'] = "true";
@@ -90,6 +90,21 @@ class TransaksiController extends BaseController
         return response($res);
         //return $this->sendResponse(TransaksiResource::collection($alat), 'Products retrieved successfully.');
     }
+    public function now(Request $request){
+        $input = $request->all();
+        $mytime=time::now();
+        $alat = DB::table('sewa')
+        ->join('user', 'user.id_user', '=', 'sewa.id_user')
+        ->where('sewa.tgl_sewa','>=',$mytime)->where('sewa.status','!=','diproses')
+        ->orderby('sewa.tgl_sewa','asc')
+        ->get(['sewa.*', 'user.*']);;
+            
+        $res['success'] = "true";
+        $res['data'] = $alat;
+        return response($res);
+    }
+
+
 
 
 
