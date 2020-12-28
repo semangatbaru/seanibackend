@@ -150,8 +150,11 @@ class RegisterController extends BaseController
                 return response($res);
             }
         }
-        
-        
+    }
+    public function getUser(){
+
+        $user = User::all();
+        return $this->sendResponse($user, 'User retrieved successfully.');
 
     }
     
