@@ -19,6 +19,8 @@ Route::post('admin', 'App\Http\Controllers\api\RegisterController@admin');
 //alat
 Route::post('alat', 'App\Http\Controllers\api\AlatController@store');
 Route::get('alat', 'App\Http\Controllers\api\AlatController@getAlat');
+Route::put('editalat/{id_alat}', 'App\Http\Controllers\api\AlatController@edit');
+Route::put('hapus/{id_alat}', 'App\Http\Controllers\api\AlatController@hapus');
 
 //laporan transaksi
 Route::get('ltransaksi', 'App\Http\Controllers\api\TransaksiController@lgetTransaksi');
@@ -31,7 +33,8 @@ Route::get('customer', 'App\Http\Controllers\api\RegisterController@getUser');
 
 //get customer
 Route::get('now', 'App\Http\Controllers\api\TransaksiController@now');
-
+//edit trs
+Route::put('edit/{id_sewa}', 'App\Http\Controllers\api\TransaksiController@edit');
 // customer
 Route::post('register', 'App\Http\Controllers\api\RegisterController@register');
 Route::post('login', 'App\Http\Controllers\api\RegisterController@login');

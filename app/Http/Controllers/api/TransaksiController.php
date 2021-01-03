@@ -103,6 +103,22 @@ class TransaksiController extends BaseController
         $res['data'] = $alat;
         return response($res);
     }
+    public function edit(Request $request, $id_sewa){
+        $tgl_sewa = $request->tgl_sewa;
+        $status = $request->status;
+        $input = $request->all();
+
+        $transaksi = Transaksi::find($id_sewa);
+        $transaksi->tgl_sewa = $tgl_sewa;
+        $transaksi->status = $status;
+        $transaksi->save();
+            
+        $res['success'] = "true";
+        $res['message'] = "data berhasil diubah";
+        $res['data'] = $transaksi;
+     
+        return response($res);
+    }
 
 
 

@@ -15,7 +15,7 @@ class AlatController extends BaseController
 {
     public function getAlat(){
 
-        $alat = Alat::all();
+        $alat = DB::table('alat')->where('hidden',null)->get();
         return $this->sendResponse(AlatResource::collection($alat), 'Alat retrieved successfully.');
 
     }
@@ -57,6 +57,36 @@ class AlatController extends BaseController
         $alat = Alat::create($input);
         return $this->sendResponse(new AlatResource($alat), 'Alat created successfully.');
 
+    }
+    public function edit(Request $request, $id_alat){
+        $nama_alat = $request->nama_alat;
+        $harga = $request->harga;
+        $stok = $request->stok;
+
+        $alat = Alat::find($id_alat);
+        $alat->nama_alat = $nama_alat;
+        $alat->harga = $harga;
+        $alat->stok = $stok;
+        $alat->save();
+            
+        $res['success'] = "true";
+        $res['message'] = "data berhasil diubah";
+        $res['data'] = $alat;
+     
+        return response($res);
+    }
+    public function hapus(Request $request, $id_alat){
+        
+
+        $alat = Alat::find($id_alat);
+        $alat->hidden = "y";
+        $alat->save();
+            
+        $res['success'] = "true";
+        $res['message'] = "data berhasil dihapus";
+        $res['data'] = $alat;
+     
+        return response($res);
     }
     
 }
