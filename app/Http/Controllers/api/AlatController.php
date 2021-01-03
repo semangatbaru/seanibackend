@@ -7,6 +7,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 use App\Models\Alat;
 use App\Http\Resources\Alat as AlatResource;
 use App\Http\Controllers\api\BaseController as BaseController;
