@@ -63,11 +63,13 @@ class AlatController extends BaseController
         $nama_alat = $request->nama_alat;
         $harga = $request->harga;
         $stok = $request->stok;
+        $deskripsi = $request->deskripsi;
 
         $alat = Alat::find($id_alat);
         $alat->nama_alat = $nama_alat;
         $alat->harga = $harga;
         $alat->stok = $stok;
+        $alat->deskripsi = $deskripsi;
         $alat->save();
             
         $res['success'] = "true";
